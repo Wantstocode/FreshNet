@@ -8,13 +8,13 @@ For data storage MySQL as been used, which is a relational database. There are b
 <br>
 **Login Page**
 <br>
-<br>
 This is logic page, where user and admin can login using their email and password, user will be having access to only shopping user site, whereas admin have access to both.
 before running the application, execute the query given. while registaring the user by default role will be set as 'User' and admin as to be entered in database(keep eyes on ManytoMany mapping while entering the admin).
 <br>
 For the Google Authentication u have to create ur own 'google-client-id' and 'google-client-secreate' and configur in Application.properties file. which i have removed because of privary perpose.
 <br>
 This may help for google oauth configure: https://www.youtube.com/watch?v=qcz2jBLNOtc
+<br>
 <br>
 ![Screenshot (55)](https://github.com/Wantstocode/FreahNet/assets/120893466/7136656f-079f-4649-852a-1d00bc0c79a4)
 <br>
