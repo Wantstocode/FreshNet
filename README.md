@@ -14,6 +14,8 @@ before running the application, execute the query given. while registaring the u
 <br>
 For the Google Authentication u have to create ur own 'google-client-id' and 'google-client-secreate' and configur in Application.properties file. which i have removed because of privary perpose.
 <br>
+This may help for google oauth configure: https://www.youtube.com/watch?v=qcz2jBLNOtc
+<br>
 ![Screenshot (55)](https://github.com/Wantstocode/FreahNet/assets/120893466/7136656f-079f-4649-852a-1d00bc0c79a4)
 <br>
 <br>
