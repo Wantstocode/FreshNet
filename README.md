@@ -4,7 +4,7 @@ This is a online grocery ordering web application built offers users a seamless 
 **Login Page**
 <br>
 This is logic page, where user and admin can login using their email and password, user will be having access to only shopping user site, whereas admin have access to both.
-before running the application, execute the query given. while registaring the user by default role will be set as 'User' and admin as to be entered in database(keep eyes into the ManytoMany mapping while entering the admin.
+before running the application, execute the query given. while registaring the user by default role will be set as 'User' and admin as to be entered in database(keep eyes on ManytoMany mapping while entering the admin).
 <br>
 For the Google Authentication u have to create ur own 'google-client-id' and 'google-client-secreate' and configur in Application.properties file. which i have removed because of privary perpose.
 <br>
