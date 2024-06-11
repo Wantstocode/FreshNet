@@ -12,14 +12,17 @@ For the Google Authentication u have to create ur own 'google-client-id' and 'go
 <br>
 <br>
 **Registration Page**
+<br>
 ![Screenshot (61)](https://github.com/Wantstocode/FreahNet/assets/120893466/4e1631c7-dd28-4e19-ad51-5822254a41a7)
 <br>
 <br>
 **Admin Home Page**
+<br>
 ![Screenshot (56)](https://github.com/Wantstocode/FreahNet/assets/120893466/c68cb8f1-9bd2-451b-a09b-f43a2089f4c8)
 <br>
 <br>
 **User Home Page**
+<br>
 ![Screenshot (57)](https://github.com/Wantstocode/FreahNet/assets/120893466/0b8528d0-bf95-4e57-b080-323666f9aad5)
 <br>
 <br>
