@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    
+    <title>Document</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <span class="freshnet">FreshNet</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/admin}" href="#">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+
+    <a th:href="@{/admin/products/add}" style="margin: 20px 0" class="btn btn-primary">Add Product</a>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">SN</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Preview</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Update</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="product, iStat : ${products}">
+            <th scope="row" th:text="${iStat.index + 1}">1</th>
+            <td th:text="${product.name}">Larry</td>
+            <td th:text="${product.category.name}">Larry</td>
+            <td><img src="" height="100px" width="100px"  th:src="@{${'/productImages/' + product.imageName}}"></td>
+
+            <td><a href="" th:href="@{/admin/product/delete/{id}(id=${product.id})}" class="btn btn-danger">Delete</a></td>
+            <td><a href="" th:href="@{/admin/product/update/{id}(id=${product.id})}" class="btn btn-warning">Update</a></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <!-- Pagination Section -->
+    <div class="pagination-container d-flex justify-content-between align-items-center">
+        <!-- First and Previous -->
+        <ul class="pagination justify-content-start mb-0">
+            <li th:classappend="${currentPage == 1 ? 'disabled' : ''}">
+                <a th:href="@{/admin/products/1}">First</a>
+            </li>
+            <li th:classappend="${currentPage == 1 ? 'disabled' : ''}">
+                <a th:href="@{/admin/products/{page}(page=${currentPage != null ? currentPage - 1 : 1})}">Previous</a>
+            </li>
+        </ul>
+
+        <!-- Total Rows -->
+        <div class="col-md-auto text-center total-rows">
+            <span>Total Items:</span> [[${totalItems}]]
+        </div>
+
+        <!-- Page Numbers -->
+        <ul class="pagination mb-0">
+            <li th:each="i : ${pageNumbers}" th:classappend="${i == currentPage ? 'active' : ''}">
+                <a th:href="@{/admin/products/{page}(page=${i})}" th:text="${i}">1</a>
+            </li>
+        </ul>
+
+        <!-- Next and Last -->
+        <ul class="pagination justify-content-end mb-0">
+            <li th:classappend="${currentPage == totalPages ? 'disabled' : ''}">
+                <a th:href="@{/admin/products/{page}(page=${currentPage != null ? currentPage + 1 : 2})}">Next</a>
+            </li>
+            <li th:classappend="${currentPage == totalPages ? 'disabled' : ''}">
+                <a th:href="@{/admin/products/{page}(page=${totalPages})}">Last</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

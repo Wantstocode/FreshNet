@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <title>My orders</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <span class="freshnet">FreshNet</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto"></ul>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" th:href="@{/admin}" href="#">
+            <i class="fas fa-home"></i> Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="#">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+<div class="container-fluid mt-5">
+
+  <div class="message-container">
+    <div th:if="${successMessage}" class="alert alert-success" role="alert">
+      <p th:text="${successMessage}"></p>
+    </div>
+
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+      <p th:text="${errorMessage}"></p>
+    </div>
+
+    <div th:if="${statusErrorMessage}" class="alert alert-danger" role="alert">
+      <p th:text="${statusErrorMessage}"></p>
+    </div>
+  </div>
+
+
+
+  <h2 class="text-center fs-3 mt-2">All Orders</h2>
+
+  <div class="col-md-4 p-4">
+    <form th:action="@{/admin/order/search}" method="get">
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" name="order_reference_id" placeholder="Enter order Id">
+        </div>
+        <div class="col-3">
+          <button class="btn btn-primary col-12">Search</button>
+        </div>
+
+
+
+      </div>
+    </form>
+  </div>
+
+  <div class="table-container">
+    <table class="table table-bordered awide-table">
+      <thead>
+      <tr>
+        <th>Sl No</th>
+        <th>Date</th>
+        <th>Order ID</th>
+        <th>Product Details</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Delivery Details</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="order, iterStat : ${orders}">
+        <td th:text="${iterStat.count}">1</td>
+        <td th:text="${order.orderDate}">2024-07-25</td>
+        <td th:text="${order.orderReferenceId}">ORD123456</td>
+        <td th:text="${order.product.description}">Product description</td>
+        <td th:text="${order.quantity}">1</td>
+        <td th:text="${order.price}">$0.00</td>
+
+        <td class="address-details">
+          <div>Name: <span th:text="${order.user.firstName} + ' ' + ${order.user.lastName}">John Doe</span></div>
+          <div>Phone Number: <span th:text="${order.orderAddress.mobileNo}">123-456-7890</span></div>
+          <div>Address: <span th:text="${order.orderAddress.address}">123 Main St</span></div>
+          <div>City: <span th:text="${order.orderAddress.city}">Springfield</span></div>
+          <div>Pin Code: <span th:text="${order.orderAddress.pinCode}">12345</span></div>
+        </td>
+
+        <td th:text="${order.orderStatus}"></td>
+        <td>
+          <form th:action="@{/admin/update-status}" method="post">
+            <div class="row">
+              <div class="col">
+                <select class="form-control" name="status_id">
+                  <option value="0">--select--</option>
+                  <option value="1">In Progress</option>
+                  <option value="2">Order Received</option>
+                  <option value="3">Out for Delivery</option>
+                  <option value="4">Order Delivered</option>
+                  <option value="5">Cancelled</option>
+                </select>
+              </div>
+              <input th:value="${order.id}" name="order_id" type="hidden">
+              <div class="col">
+                <button class="btn btn-primary btn-sm col"
+                        th:disabled="${order.orderStatus == 'Order Cancelled' or order.orderStatus == 'Order Delivered'}">Update</button>
+              </div>
+
+            </div>
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
