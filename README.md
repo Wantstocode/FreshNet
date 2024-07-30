@@ -11,10 +11,18 @@ FreashNet is an online grocery ordering web application built using Spring Boot 
 4. Google Sign-In Integration: Allows users to authenticate using their Google accounts.
 5. Security Measures: Implements strong security protocols to protect user data.
 6. Data Storage: Utilizes MySQL as a relational database with five tables having various relationships:
-           * OneToOne
-           * OneToMany
-           * ManyToMany
-## Login Page
+      * OneToOne
+      * OneToMany
+      * ManyToMany
+7. Email Verification: Sends a verification email to users upon registration to confirm their email address. Ensuring that Only verified emails can log in. Invalid or false email addresses will not be able to access the application.
+8. Forgot Password: Allows users to reset their passwords via email if they forget their credentials.
+9. Product Management:
+     * Sorting: Allows sorting products by price and name to help users find items more easily.
+     * Searching: Enables users to search for products using keywords.
+     * Pagination: Implements pagination to manage large sets of products, improving the browsing experience.
+     * Selection and Cart Management: Users can select products, add them to their cart, and proceed to place orders.
+<br>
+## Login credentials
 
 1. User Login: Users can log in using their email and password to access the shopping site
 2. Admin Login: Admins can log in with additional privileges to manage both user and admin functionalities.
@@ -31,21 +39,25 @@ FreashNet is an online grocery ordering web application built using Spring Boot 
    * Configure these credentials in the application.properties file. (Note: Sensitive information has been omitted for privacy.)
    * This may help for google oauth configure: https://www.youtube.com/watch?v=qcz2jBLNOtc
 
+**login page**
 <br>
 <br>
-![Screenshot (55)](https://github.com/Wantstocode/FreahNet/assets/120893466/7136656f-079f-4649-852a-1d00bc0c79a4)
+![Screenshot (64)](https://github.com/user-attachments/assets/d09a7751-f91e-49ac-b364-75fd8a4a3472)
+
 <br>
 <br>
 **Registration Page**
 <br>
 <br>
-![Screenshot (61)](https://github.com/Wantstocode/FreahNet/assets/120893466/4e1631c7-dd28-4e19-ad51-5822254a41a7)
+![Screenshot (65)](https://github.com/user-attachments/assets/2b8d43b5-6556-4be5-af48-f58f0572e4a8)
+
 <br>
 <br>
 **Admin Home Page**
 <br>
 <br>
-![Screenshot (56)](https://github.com/Wantstocode/FreahNet/assets/120893466/c68cb8f1-9bd2-451b-a09b-f43a2089f4c8)
+![Screenshot (66)](https://github.com/user-attachments/assets/48ab2c89-868f-4d73-9ed2-cea0bfd1ece2)
+
 <br>
 <br>
 **User Home Page**
