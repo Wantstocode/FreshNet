@@ -39,6 +39,11 @@ FreashNet is an online grocery ordering web application built using Spring Boot 
    * Configure these credentials in the application.properties file. (Note: Sensitive information has been omitted for privacy.)
    * This may help for google oauth configure: https://www.youtube.com/watch?v=qcz2jBLNOtc
 
+## ER-Diagram
+
+![ordermadi-ER](https://github.com/user-attachments/assets/3b36453f-7e2e-4d8a-ac06-d57131f4ed32)
+<br>
+<br>
 **login page**
 <br>
 <br>
@@ -67,6 +72,11 @@ FreashNet is an online grocery ordering web application built using Spring Boot 
 <br>
 <br>
 ![Screenshot (68)](https://github.com/user-attachments/assets/1c3ec589-8406-4b18-8196-c3c9884621d6)
+<br>
+<br>
+**My Orders**
+![image](https://github.com/user-attachments/assets/0d258ecd-f391-4793-b7e4-6b4d451ea1e1)
+
 
 
 
