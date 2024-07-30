@@ -24,7 +24,7 @@ FreashNet is an online grocery ordering web application built using Spring Boot 
        
 ## Login credentials
 
-1. User Login: Users can log in using their email and password to access the shopping site
+1. User Login: Users can log in using their email and password to access the shopping site.
 2. Admin Login: Admins can log in with additional privileges to manage both user and admin functionalities.
 
 ## Setup Instructions
@@ -40,7 +40,8 @@ FreashNet is an online grocery ordering web application built using Spring Boot 
    * This may help for google oauth configure: https://www.youtube.com/watch?v=qcz2jBLNOtc
 
 ## ER-Diagram
-
+<br>
+<br>
 ![ordermadi-ER](https://github.com/user-attachments/assets/3b36453f-7e2e-4d8a-ac06-d57131f4ed32)
 <br>
 <br>
