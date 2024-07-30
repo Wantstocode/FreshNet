@@ -1,19 +1,36 @@
-# FreahNet
-This is a online grocery ordering web application built using Spring Boot as Backend and thymeleaf as frountend. This application offers users a seamless experience to browse, select, and purchase groceries, inventory management, role-based authorization, Google sign-in integration, and robust security measures.
+## FreahNet
+FreashNet is an online grocery ordering web application built using Spring Boot for the backend and Thymeleaf for the frontend. It offers a seamless experience for users to browse, select, and purchase groceries. The application also features inventory management, role-based authorization, Google sign-in integration, and robust security measures.
 <br>
-I have used Spring MVC as a basic work flow of a website, where a request is recived from client and the responds is sent from the server as a view with dynamic content with the help of API. 
-<br>
-For data storage MySQL as been used, which is a relational database. There are basically five tables with relationship between each other(OneToOne, OnetoMany, ManyToMany) 
-<br>
-<br>
-**Login Page**
-<br>
-This is logic page, where user and admin can login using their email and password, user will be having access to only shopping user site, whereas admin have access to both.
-before running the application, execute the query given. while registaring the user by default role will be set as 'User' and admin as to be entered in database(keep eyes on ManytoMany mapping while entering the admin).
-<br>
-For the Google Authentication u have to create ur own 'google-client-id' and 'google-client-secreate' and configur in Application.properties file. which i have removed because of privary perpose.
-<br>
-This may help for google oauth configure: https://www.youtube.com/watch?v=qcz2jBLNOtc
+## Key Features
+
+1. Spring Boot Backend: Provides a robust and scalable backend.
+2. Thymeleaf Frontend: Renders dynamic content and views.
+3. User and Admin Roles:
+      #Users: Access only the shopping site.
+      #Admins: Have access to both user and admin functionalities.
+4. Google Sign-In Integration: Allows users to authenticate using their Google accounts.
+5. Security Measures: Implements strong security protocols to protect user data.
+6. Data Storage: Utilizes MySQL as a relational database with five tables having various relationships:
+           OneToOne
+           OneToMany
+           ManyToMany
+## Login Page
+
+1. User Login: Users can log in using their email and password to access the shopping site
+2. Admin Login: Admins can log in with additional privileges to manage both user and admin functionalities.
+
+## Setup Instructions
+
+1.Database Initialization:
+
+* Execute the provided SQL query to set up the initial database schema and data.
+* By default, users are assigned the 'User' role. Admins need to be manually added to the database, paying attention to ManyToMany mapping.
+
+2. Google Authentication:
+   * Create your own google-client-id and google-client-secret credentials.
+   * Configure these credentials in the application.properties file. (Note: Sensitive information has been omitted for privacy.)
+   * This may help for google oauth configure: https://www.youtube.com/watch?v=qcz2jBLNOtc
+
 <br>
 <br>
 ![Screenshot (55)](https://github.com/Wantstocode/FreahNet/assets/120893466/7136656f-079f-4649-852a-1d00bc0c79a4)
