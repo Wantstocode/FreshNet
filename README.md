@@ -21,7 +21,7 @@ FreashNet is an online grocery ordering web application built using Spring Boot 
      * Searching: Enables users to search for products using keywords.
      * Pagination: Implements pagination to manage large sets of products, improving the browsing experience.
      * Selection and Cart Management: Users can select products, add them to their cart, and proceed to place orders.
-<br>
+       
 ## Login credentials
 
 1. User Login: Users can log in using their email and password to access the shopping site
@@ -43,22 +43,32 @@ FreashNet is an online grocery ordering web application built using Spring Boot 
 <br>
 <br>
 ![Screenshot (64)](https://github.com/user-attachments/assets/d09a7751-f91e-49ac-b364-75fd8a4a3472)
-
 <br>
 <br>
 **Registration Page**
 <br>
 <br>
 ![Screenshot (65)](https://github.com/user-attachments/assets/2b8d43b5-6556-4be5-af48-f58f0572e4a8)
-
 <br>
 <br>
-**Admin Home Page**
+**login page**
 <br>
 <br>
 ![Screenshot (66)](https://github.com/user-attachments/assets/48ab2c89-868f-4d73-9ed2-cea0bfd1ece2)
 <br>
 <br>
+**Shopping Page**
+<br>
+<br>
+![Screenshot (67)](https://github.com/user-attachments/assets/4468ba8a-6b24-4541-940c-af5153999e1b)
+<br>
+<br>
+**Cart Product Checkout**
+<br>
+<br>
+![Screenshot (68)](https://github.com/user-attachments/assets/1c3ec589-8406-4b18-8196-c3c9884621d6)
+
+
 
 
 
