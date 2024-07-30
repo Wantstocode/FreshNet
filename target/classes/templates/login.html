@@ -34,36 +34,54 @@
                         <i class="fas fa-home"></i> Home
                     </a>
                 </li>
+
             </ul>
 
         </div>
     </div>
 </nav>
 <div class="container">
-    <div id="login-row" class="row justify-content-center align-items-center">
-        <div id="login-column" class="col-md-6">
-            <div id="login-box" style="height: 250px;" class="col-md-12">
-                <!--change password form-->
-                <h3 class="mt-4">Enter new password</h3>
-
-                <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
-                    <p th:text="${errorMessage}"></p>
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Login</h2>
+            <p>Please fill out this to login</p>
+            <div th:if="${successMessage}" class="alert alert-success" role="alert">
+                <p th:text="${successMessage}"></p>
+            </div>
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Your Email" class="form-control form-control-lg">
                 </div>
 
-                <form th:action="@{/change-password}" method="post">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control form-control-lg" placeholder="Password" name="password" id="password">
+                </div>
+                <div th:if="${param.error}" class="alert alert-error text-danger">
+                    Invalid username or password.
+<!--                    [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]-->
+                </div>
 
-                    <div class="form-group">
-                        <input name="newpassword" type="text" placeholder="Enter new password " class="form_control" required="required"/>
-                    </div>
-                    <div class="form-group">
-                        <input name="cnewpassword" type="text" placeholder="Confirm password " class="form_control" required="required"/>
-                    </div>
-                    <div class="container text-container">
-                        <button class="btn btn-primary">Change Password</button>
-                    </div>
-                </form>
-            </div>
+                <input type="submit" value="Login" class="btn btn-primary btn-block">
+                <br>
+                <span >Don't have an account <a class="linkControl" href="./register.html"
+                                                th:href="@{/register}">Register here</a></span>
+                <br>
+                <span >Forgot password? <a class="linkControl"
+                                                th:href="@{/forgotpassword}">CLick here</a></span>
+                <br>
+
+            </form>
+
+
+            <br>
+            <h3>OR</h3>
+            <a href="/oauth2/authorization/google" class="btn btn-primary">Sign-In with google </a>
+
+
         </div>
+
     </div>
 </div>
 

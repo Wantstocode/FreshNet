@@ -40,32 +40,45 @@
     </div>
 </nav>
 <div class="container">
-    <div id="login-row" class="row justify-content-center align-items-center">
-        <div id="login-column" class="col-md-6">
-            <div id="login-box" style="height: 250px;" class="col-md-12">
-                <!--change password form-->
-                <h3 class="mt-4">Enter new password</h3>
-
-                <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
-                    <p th:text="${errorMessage}"></p>
-                </div>
-
-                <form th:action="@{/change-password}" method="post">
-
-                    <div class="form-group">
-                        <input name="newpassword" type="text" placeholder="Enter new password " class="form_control" required="required"/>
-                    </div>
-                    <div class="form-group">
-                        <input name="cnewpassword" type="text" placeholder="Confirm password " class="form_control" required="required"/>
-                    </div>
-                    <div class="container text-container">
-                        <button class="btn btn-primary">Change Password</button>
-                    </div>
-                </form>
-            </div>
+    <div class="col-sm-6">
+        <h3 style="margin-top: 10px">Sign Up Now</h3>
+        <p>Please fill out this to register</p>
+        <!-- Display pop-up message if emailSentMessage is present -->
+        <div th:if="${emailSentMessage}" class="alert alert-success" role="alert">
+            <p th:utext="${emailSentMessage}"></p>
         </div>
+        <form th:action="@{/register}" th:object="${user}" method="post">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" name="firstName" id="firstName" required th:field="*{firstName}" placeholder="Your Firstname" class="form-control form-control-lg">
+                <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error-msg"></p>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" name="lastName" id="lastName" required th:field="*{lastName}" placeholder="Your Lastname" class="form-control form-control-lg">
+                <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error-msg"></p>
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control form-control-lg" required minlength="6" th:field="*{email}" placeholder="Email" name="email" id="email"
+                       aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with
+                    anyone else.</small>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control form-control-lg" required th:field="*{password}" placeholder="Enter Password" name="password" id="password">
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+            </div>
+
+            <input type="submit" value="Register" class="btn btn-primary btn-block">
+            <span style="margin-top: 10px">Already have an account <a class="linkControl" href="./login.html"
+                                                                      th:href="@{/login}">Login here</a></span>
+
+        </form>
     </div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
