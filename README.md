@@ -57,19 +57,8 @@ FreashNet is an online grocery ordering web application built using Spring Boot 
 <br>
 <br>
 ![Screenshot (66)](https://github.com/user-attachments/assets/48ab2c89-868f-4d73-9ed2-cea0bfd1ece2)
-
 <br>
 <br>
-**User Home Page**
-<br>
-<br>
-![Screenshot (57)](https://github.com/Wantstocode/FreahNet/assets/120893466/0b8528d0-bf95-4e57-b080-323666f9aad5)
-<br>
-<br>
-**User Shopping Page**
-<br>
-<br>
-![Screenshot (58)](https://github.com/Wantstocode/FreahNet/assets/120893466/04f43c3b-7328-499f-8589-4efbce2aabff)
 
 
 
