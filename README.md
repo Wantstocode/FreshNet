@@ -42,6 +42,7 @@ FreashNet is an online grocery ordering web application built using Spring Boot 
 ## ER-Diagram
 <br>
 <br>
+
 ![ordermadi-ER](https://github.com/user-attachments/assets/3b36453f-7e2e-4d8a-ac06-d57131f4ed32)
 <br>
 <br>
