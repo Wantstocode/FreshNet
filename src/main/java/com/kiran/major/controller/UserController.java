@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class UserController {
@@ -58,11 +60,20 @@ public class UserController {
     @GetMapping({"/", "/home"})
     public String getHome(Model model, Principal principal){
 
-//        model.addAttribute("cartCount",User.cart.size());
-        String email=principal.getName();
+        String email = null;
+        if (principal instanceof OAuth2AuthenticationToken) {
+            OAuth2AuthenticationToken oAuth2Token = (OAuth2AuthenticationToken) principal;
+            Map<String, Object> attributes = oAuth2Token.getPrincipal().getAttributes();
+            email = (String) attributes.get("email");
+            System.out.println("OAuth2 email: " + email);
+        } else {
+            email = principal.getName();
+            System.out.println("Principal name: " + email);
+        }
+
         User user=userRepository.findUserByEmail(email);
-        httpSession.setAttribute("userId",user.getId());
         if(user!=null) {
+            httpSession.setAttribute("userId",user.getId());
             String name = user.getFirstName();
             int userId=user.getId();
             int itemCount = cartRepository.countItemsByUserId(userId);
@@ -98,22 +109,22 @@ public class UserController {
     }
 
     @GetMapping("/addToCart/{id}")
-    public String addToCart(@PathVariable long id,Principal principal,Model model){
-        String email=principal.getName();
-        User user=userRepository.findUserByEmail(email);
+    public String addToCart(@PathVariable long id,Model model){
+
+        int userId=(Integer)httpSession.getAttribute("userId");
+        User user=userService.findById(userId);
         if(user!=null) {
-            int userId = user.getId();
             Cart cart = cartService.saveCart(id, userId);
         }
         return "redirect:/cart";
     }
 
     @GetMapping("/cart")
-    public String cartView(Model model,Principal principal){
-        String email=principal.getName();
-        User user=userRepository.findUserByEmail(email);
+    public String cartView(Model model){
+
+        int userId=(Integer)httpSession.getAttribute("userId");
+        User user=userService.findById(userId);
         if(user!=null) {
-            int userId = user.getId();
 
             List<Cart> cart = cartService.getByUserId(userId);
             if (cart != null) {
