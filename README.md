@@ -6,14 +6,14 @@ FreashNet is an online grocery ordering web application built using Spring Boot 
 1. Spring Boot Backend: Provides a robust and scalable backend.
 2. Thymeleaf Frontend: Renders dynamic content and views.
 3. User and Admin Roles:
-      #Users: Access only the shopping site.
-      #Admins: Have access to both user and admin functionalities.
+      * Users: Access only the shopping site.
+      * Admins: Have access to both user and admin functionalities.
 4. Google Sign-In Integration: Allows users to authenticate using their Google accounts.
 5. Security Measures: Implements strong security protocols to protect user data.
 6. Data Storage: Utilizes MySQL as a relational database with five tables having various relationships:
-           OneToOne
-           OneToMany
-           ManyToMany
+           * OneToOne
+           * OneToMany
+           * ManyToMany
 ## Login Page
 
 1. User Login: Users can log in using their email and password to access the shopping site
