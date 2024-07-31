@@ -1,9 +1,4 @@
-.freshnet {
-            font-size: 35px;
-            color: orange;
-            font-weight: bold;
-            font-family: 'Arial', sans-serif;
-        }
+
 .pagination-container {
             display: flex;
             justify-content: center;
@@ -244,4 +239,10 @@
  /*    max-width: 600px;*/
      margin: 10px; /* Adds space around each alert */
  }
+
+.navbar-brand .freshnet {
+  color: orange;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 

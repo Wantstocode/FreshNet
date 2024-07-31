@@ -15,6 +15,7 @@ const search = () => {
             })
             .then((data)=>{
             console.log(data);
+
 //            let text = "<div class='list-group'>";
 //            data.forEach((product)=>{
 //                text += "<a th:href='#' class='list-group-item list-group-item-action'>${product.name} </a>";
