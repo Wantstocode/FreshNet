@@ -22,7 +22,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Page<Product> findAll(int pageNumber) {
 
-        Pageable pageable= PageRequest.of(pageNumber-1,10);
+        Pageable pageable= PageRequest.of(pageNumber-1,5);
 
         System.out.println("pageable"+ pageable);
         return productRepository.findAll(pageable);
@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService{
         sort=sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
 
-        Pageable pageable= PageRequest.of(pageNumber-1,10,sort);
+        Pageable pageable= PageRequest.of(pageNumber-1,5,sort);
 
         System.out.println("pageable"+ pageable);
         return productRepository.findAll(pageable);
@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService{
         Sort sort=Sort.by(sortField);
         sort=sortDir.equals("asc") ? sort.ascending() : sort.descending();
 
-        Pageable pageable= PageRequest.of(pageNumber-1,10,sort);
+        Pageable pageable= PageRequest.of(pageNumber-1,5,sort);
 
         return productRepository.findWithPagination(keyword,pageable);
     }
@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Page<Product> findWithPagination(String keyword,int pageNumber) {
 
-        Pageable pageable= PageRequest.of(pageNumber-1,10);
+        Pageable pageable= PageRequest.of(pageNumber-1,5);
 
         return productRepository.findWithPagination(keyword,pageable);
     }
