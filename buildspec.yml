@@ -15,6 +15,6 @@ phases:
       - echo build completed successfully
 artifacts:
   files:
-    - target/FreshNet.jar
+    - target/**/*.jar
   discard-paths: yes
 
