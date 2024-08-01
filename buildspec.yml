@@ -1,14 +1,20 @@
 version: 0.2
 
 phases:
+  install:
+    commands:
+      - echo Installing Maven and Java dependencies...
+      - yum install -y java-17-amazon-corretto-devel
+      - mvn --version
   build:
     commands:
       - echo entered the build phase...
       - mvn clean package
-    post_build:
-      commands:
-        - echo build completed successfully
+  post_build:
+    commands:
+      - echo build completed successfully
 artifacts:
   files:
     - target/FreshNet.jar
   discard-paths: yes
+
