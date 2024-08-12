@@ -10,5 +10,8 @@ public interface OrderRepository extends JpaRepository<Order,Integer> {
 
     public List<Order> findOrderByUser(User user);
 
+    public void deleteOrderByProductId(long id);
+
+    public void deleteOrdersByProductCategoryId(int categoryId);
     public Order findOrderByOrderReferenceId(String id);
 }
