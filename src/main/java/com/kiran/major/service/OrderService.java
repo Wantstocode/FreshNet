@@ -18,4 +18,8 @@ public interface OrderService {
     boolean updateOrderStatus(int id,String status);
 
     Order findOrderByOrderReferenceId(String id);
+
+    void deleteOrderByProductId(long id);
+
+    void deleteOrdersByProductCategoryId(int categoryId);
 }

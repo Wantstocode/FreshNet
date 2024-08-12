@@ -85,6 +85,8 @@ public class AdminController {
 
     @GetMapping("/admin/categories/delete/{id}")
     public String deleteCat(@PathVariable int id) {
+
+        orderService.deleteOrdersByProductCategoryId(id);
         categoryService.deleteById(id);
         return "redirect:/admin/categories";
     }
@@ -120,14 +122,6 @@ public class AdminController {
         return "products";
     }
 
-
-
-//    @GetMapping("/admin/products")
-//    public String getProducts(Model model){
-//        List<Product> theProducts=productService.findAll();
-//        model.addAttribute("products",theProducts);
-//        return "products";
-//    }
 
 
     @GetMapping("/admin/products/add")
@@ -167,6 +161,8 @@ public class AdminController {
 
     @GetMapping("/admin/product/delete/{id}")
     public String deleteProduct(@PathVariable long id) {
+        orderService.deleteOrderByProductId(id);
+
         productService.deleteById(id);
         return "redirect:/admin/products/1";
     }

@@ -101,4 +101,18 @@ public class OrderServiceImpl implements OrderService{
     public Order findOrderByOrderReferenceId(String id) {
         return orderRepository.findOrderByOrderReferenceId(id);
     }
+
+    @Transactional
+    @Override
+    public void deleteOrderByProductId(long id) {
+        orderRepository.deleteOrderByProductId(id);
+    }
+
+    @Transactional
+    @Override
+    public void deleteOrdersByProductCategoryId(int categoryId) {
+        orderRepository.deleteOrdersByProductCategoryId(categoryId);
+    }
+
+
 }
