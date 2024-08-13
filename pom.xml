@@ -139,7 +139,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-    <finalName>FreshNet</finalName>
+                <finalName>FreshNet</finalName>
 	</build>
 
 </project>
