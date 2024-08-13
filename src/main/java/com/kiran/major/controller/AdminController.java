@@ -8,6 +8,7 @@ import com.kiran.major.model.Product;
 import com.kiran.major.model.User;
 import com.kiran.major.repository.UserRepository;
 import com.kiran.major.service.CategoryService;
+import com.kiran.major.service.FileService;
 import com.kiran.major.service.OrderService;
 import com.kiran.major.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,9 @@ public class AdminController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private FileService fileService;
 
     @GetMapping("/admin")
     public String Admin(Principal principal,Model model){
@@ -146,13 +150,19 @@ public class AdminController {
         product.setDescription(theProductDTO.getDescription());
         String imageUUID;
         if (!file.isEmpty()){
-            imageUUID=file.getOriginalFilename();
-            Path fileNameAndPath= Paths.get(uploadDir,imageUUID);
-            Files.write(fileNameAndPath,file.getBytes());
+
+
+            fileService.uploadFileToS3(file);
+
+            // https://freshnet-product.s3.amazonaws.com/apple.jpg
+            imageUUID= "https://freshnet-product.s3.amazonaws.com/" + file.getOriginalFilename();
+
+
         }
         else{
             imageUUID=imageName;
         }
+
         product.setImageName(imageUUID);
         productService.save(product);
 
