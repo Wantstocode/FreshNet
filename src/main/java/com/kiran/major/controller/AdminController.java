@@ -157,6 +157,7 @@ public class AdminController {
             // https://freshnet-product.s3.amazonaws.com/apple.jpg
             imageUUID= "https://freshnet-product.s3.amazonaws.com/" + file.getOriginalFilename();
 
+
         }
         else{
             imageUUID=imageName;

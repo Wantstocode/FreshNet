@@ -15,7 +15,7 @@ CREATE TABLE product (
     price DOUBLE,
     weight DOUBLE,
     description VARCHAR(100),  -- Corrected typo
-    imagename VARCHAR(50),
+    imagename VARCHAR(250),
     FOREIGN KEY (category_id) REFERENCES category(id)
 );
 

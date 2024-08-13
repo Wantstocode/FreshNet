@@ -30,5 +30,6 @@ public class AWSConfig {
                 .region(regionName)
                 .credentialsProvider(StaticCredentialsProvider.create(credentials))
                 .build();
+
     }
 }
