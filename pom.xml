@@ -50,11 +50,7 @@
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity6</artifactId>
@@ -88,33 +84,7 @@
             <artifactId>s3</artifactId>
             <version>2.20.8</version>
         </dependency>
-        <dependency>
-            <groupId>com.paytm</groupId>
-            <artifactId>miniapp-sdk-client</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.paytm</groupId>
-            <artifactId>paytm-checksum</artifactId>
-            <version>1.2.0</version>
-        </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>snapshots</id>
-            <name>libs-snapshot</name>
-            <url>https://artifactorypg.paytm.in/artifactory/libs-snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>my-repo1</id>
-            <url>https://artifactorypg.paytm.in/artifactory/libs-release</url>
-        </repository>
-    </repositories>
 
     <build>
         <plugins>
