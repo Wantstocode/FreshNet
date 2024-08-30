@@ -41,11 +41,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/cart}" href="#">
-                        Cart <span class="cart-count" th:text="${cartCount}">0</span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="#">
                         <i class="fas fa-sign-in-alt"></i> Login
                     </a>
@@ -73,7 +68,7 @@
             <div class="col-lg-8 mb-4">
 
 
-                <form th:action="@{/order}" method="post">
+                <form id="orderForm" th:action="@{/order}" method="post">
                 <!-- Card -->
                 <div class="card wish-list pb-1">
                     <div class="card-body">
@@ -123,46 +118,46 @@
 
                         <!-- Address Part 1 -->
                         <div class="md-form md-outline mt-2">
-                            <label for="form14">Address (Line 1)</label>
-                            <input type="text" name="address" required id="form14" placeholder="House number and street name" class="form-control">
+                            <label for="address">Address (Line 1)</label>
+                            <input type="text" name="address" required id="address" placeholder="House number and street name" class="form-control">
                         </div>
 
                         <!-- Address Part 2 -->
                         <div class="md-form md-outline mt-2">
-                            <label for="form15">Address (Line 2)</label>
-                            <input type="text" name="address2"  id="form15" placeholder="Apartment, suite, unit etc. (optional)"
+                            <label for="address2">Address (Line 2)</label>
+                            <input type="text" name="address2"  id="address2" placeholder="Apartment, suite, unit etc. (optional)"
                                    class="form-control">
                         </div>
 
                         <!-- Postcode / ZIP -->
                         <div class="md-form md-outline mt-3">
-                            <label for="form16">Postcode / ZIP</label>
-                            <input type="text" name="pinCode" maxlength="6" minlength="6" required id="form16" class="form-control">
+                            <label for="postCode">Postcode / ZIP</label>
+                            <input type="text" name="pinCode" maxlength="6" minlength="6" required id="postCode" class="form-control">
                         </div>
 
                         <!-- Town / City -->
                         <div class="md-form md-outline mt-2">
-                            <label for="form17">Town / City</label>
-                            <input type="text" name="city" required id="form17" class="form-control">
+                            <label for="city">Town / City</label>
+                            <input type="text" name="city" required id="city" class="form-control">
 
                         </div>
 
                         <!-- Phone -->
                         <div class="md-form md-outline mt-2">
-                            <label for="form18">Phone</label>
-                            <input type="number" name="mobileNo" minlength="10" maxlength="10" required id="form18" class="form-control">
+                            <label for="phone">Phone</label>
+                            <input type="text" name="mobileNo" minlength="10" maxlength="10" required id="phone" class="form-control">
                         </div>
 
                         <!-- Email address -->
                         <div class="md-form md-outline mt-2">
-                            <label for="form19">Email address</label>
-                            <input type="email" name="email" required id="form19" class="form-control">
+                            <label for="email">Email address</label>
+                            <input type="email" name="email" required id="email" class="form-control">
                         </div>
 
                         <!-- Additional information -->
                         <div class="md-form md-outline mt-2">
-                            <label for="form76">Additional information</label>
-                            <textarea id="form76" name="additionalInfo" class="md-textarea form-control" rows="4"></textarea>
+                            <label for="additionalInfo">Additional information</label>
+                            <textarea id="additionalInfo" name="additionalInfo" class="md-textarea form-control" rows="4"></textarea>
                         </div>
 
 
@@ -216,42 +211,18 @@
                     <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
                         <div class="card-body">
 
-                                <div class="mb-3">
-                                    <label class="form-label">Select Payment Type</label>
-                                    <select name="PaymentType" required class="form-control">
-                                        <option>--select--</option>
-                                        <option value="COD">Cash On Delivery</option>
-                                        <option value="ONLINE">Online Payment</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn bg-primary text-white col-md-12">Place Order</button>
+                            <div class="mb-3">
+                                <label class="form-label" for="paymentType">Select Payment Type</label>
+                                <select name="paymentType" id="paymentType" class="form-control" required>
+                                    <option value="" disabled selected>--select--</option>
+                                    <option value="COD">Cash On Delivery</option>
+                                    <option value="ONLINE">Online Payment</option>
+                                </select>
+                            </div>
+                                <button id="submit" type="submit" class="btn bg-primary text-white col-md-12">Place Order</button>
                         </div>
                     </div>
                 </div>
-
-                <!-- Card -->
-
-                <!-- Card -->
-<!--                <div class="card mb-4">-->
-<!--                    <div class="card-body">-->
-
-<!--                        <a class="dark-grey-text d-flex justify-content-between" data-toggle="collapse" href="#collapseExample"-->
-<!--                           aria-expanded="false" aria-controls="collapseExample">-->
-<!--                            Add a discount code (optional)-->
-<!--                            <span><i class="fas fa-chevron-down pt-1"></i></span>-->
-<!--                        </a>-->
-
-<!--                        <div class="collapse" id="collapseExample">-->
-<!--                            <div class="mt-3">-->
-<!--                                <div class="md-form md-outline mb-0">-->
-<!--                                    <input type="text" id="discount-code" class="form-control font-weight-light"-->
-<!--                                           placeholder="Enter discount code">-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-                <!-- Card -->
 
                 </form>
             </div>
@@ -264,10 +235,122 @@
     </section>
     <!--Section: Block Content-->
 
-
 </div>
 
 
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  document.getElementById('orderForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent form submission
+
+    const firstNameElement = document.getElementById('firstName');
+    const lastNameElement = document.getElementById('lastName');
+    const emailElement = document.getElementById('email');
+    const mobileNoElement = document.getElementById('phone');
+    const addressElement = document.getElementById('address');
+    const paymentTypeElement = document.getElementById('paymentType');
+
+    if (!firstNameElement || !lastNameElement || !emailElement || !mobileNoElement || !addressElement || !paymentTypeElement) {
+        console.error('One or more required elements are missing from the DOM');
+        return;
+    }
+
+    const paymentType = paymentTypeElement.value;
+
+    console.log('Payment Type:', paymentType);
+
+    if (paymentType === 'ONLINE') {
+        const formData = new FormData(document.getElementById('orderForm'));
+
+        fetch('/order/rezorpay', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Payment Data:', data);
+
+            const options = {
+                "key": "rzp_test_JhSRlYJYMTMJ67",
+                "amount": data.price * 100, // amount in smallest currency unit
+                "currency": "INR",
+                "name": "FreshNet",
+                "description": "Order Payment",
+                "order_id": data.rezorPayOrderId,
+                "handler": function (response) {
+                    // Send the paymentId to the backend
+                    fetch('/payment-success', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            paymentId: response.razorpay_payment_id,
+                            paymentAmount: data.price * 100,
+                            orderId: data.rezorPayOrderId
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log('Order Success Response:', result);
+                        // Redirect to the confirmation page
+                        window.location.href = '/order-confirmed';
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Payment processing failed.');
+                    });
+                },
+                "prefill": {
+                    "name": firstNameElement.value + ' ' + lastNameElement.value,
+                    "email": emailElement.value,
+                    "contact": mobileNoElement.value
+                },
+                "notes": {
+                    "address": addressElement.value
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+            console.log('Razorpay Options:', options);
+            const rzp = new Razorpay(options);
+            rzp.open();
+        })
+        .catch(error => console.error('Error:', error));
+    } else {
+       // Create a form and submit it with POST method
+        const form = this;
+        form.method = 'POST';
+        form.action = '/order';
+
+        // Add hidden fields for each form element
+        const elements = document.querySelectorAll('#orderForm input, #orderForm textarea, #orderForm select');
+        elements.forEach(element => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = element.name;
+            input.value = element.value;
+            form.appendChild(input);
+        });
+
+        const paymentTypeInput = document.createElement('input');
+        paymentTypeInput.type = 'hidden';
+        paymentTypeInput.name = 'paymentType';
+        paymentTypeInput.value = paymentType;
+        form.appendChild(paymentTypeInput);
+
+        // Append the form to the body and submit it
+        document.body.appendChild(form);
+        form.submit();
+    }
+});
+
+
+</script>
 
 
 

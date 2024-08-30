@@ -2,24 +2,21 @@ package com.kiran.major.controller;
 
 
 import com.kiran.major.dto.OrderRequest;
-import com.kiran.major.model.Cart;
-import com.kiran.major.model.Order;
-import com.kiran.major.model.Product;
-import com.kiran.major.model.User;
+import com.kiran.major.model.*;
 import com.kiran.major.repository.CartRepository;
 import com.kiran.major.repository.UserRepository;
 import com.kiran.major.service.*;
+import com.razorpay.RazorpayException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -38,6 +35,9 @@ public class UserController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private PaymentService paymentService;
 
     @Autowired
     CartRepository cartRepository;
@@ -153,6 +153,30 @@ public class UserController {
     }
 
 
+    @GetMapping("/cart/decreaseQuantity/{productId}")
+    public String cartItemDecrease(@PathVariable long productId){
+        int userId=(Integer)httpSession.getAttribute("userId");
+        Cart cart=cartRepository.findByProductIdAndUserId(userId,productId);
+        Product product=productService.findById(productId);
+        if (cart != null && cart.getProduct() != null) {
+            cartService.decreaseQuantity(cart,product);
+        }
+        return "redirect:/cart";
+    }
+
+
+
+    @GetMapping("/cart/increaseQuantity/{productId}")
+    public String cartItemIncrease(@PathVariable long productId){
+        int userId=(Integer)httpSession.getAttribute("userId");
+        Cart cart=cartRepository.findByProductIdAndUserId(userId,productId);
+        Product product=productService.findById(productId);
+        if (cart != null && cart.getProduct() != null) {
+            cartService.increaseQuantity(cart,product);
+        }
+        return "redirect:/cart";
+    }
+
 
     //for listing all products with or without sorting
     @GetMapping("/shop/{pageNumber}")
@@ -259,19 +283,59 @@ public class UserController {
     }
 
 
-    @PostMapping("/order")
-    public String order(@ModelAttribute OrderRequest orderRequest){
+    @PostMapping(value = "/order/rezorpay",produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<Order> order(@ModelAttribute OrderRequest orderRequest) throws RazorpayException {
         System.out.println(orderRequest);
         int userId=(Integer)httpSession.getAttribute("userId");
-        orderService.saveOrder(orderRequest,userId);
+        Order order=orderService.saveOnlinePaymentOrder(orderRequest,userId);
         List<Cart> cartList=cartService.getByUserId(userId);
         if(cartList!=null) {
             for (Cart cart : cartList) {
                 cartService.delete(cart);
             }
         }
-        return "order_succes";
+        return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
+
+
+    @PostMapping("/payment-success")
+    public ResponseEntity<String> orderSuccess(@RequestBody Map<String, String> paymentDetails){
+
+        System.out.println(paymentDetails.get("paymentId"));
+        boolean paymentSuccess=paymentService.createPayment(paymentDetails);
+        System.out.println("ho");
+
+        if (paymentSuccess) {
+            System.out.println("Payment successful and verified.");
+            return ResponseEntity.ok("{\"message\": \"Payment processed successfully\"}");
+        } else {
+            System.out.println("Payment verification failed.");
+            return new ResponseEntity<>("{\"message\": \"Payment verification failed\"}", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @PostMapping("/order")
+    public String orders(@ModelAttribute OrderRequest orderRequest){
+        int userId=(Integer)httpSession.getAttribute("userId");
+        orderService.saveOfflinePaymentOrder(orderRequest,userId);
+        List<Cart> cartList=cartService.getByUserId(userId);
+        if(cartList!=null) {
+            for (Cart cart : cartList) {
+                cartService.delete(cart);
+            }
+        }
+        return "redirect:/order-confirmed";
+    }
+
+
+    @GetMapping("/order-confirmed")
+    public String orderConfirm(){
+        System.out.println("hyy");
+        return "order_success";
+    }
+
 
     @GetMapping("/my-orders")
     public String myOrders(Model model){
@@ -281,6 +345,7 @@ public class UserController {
         model.addAttribute("orders",order);
         return "My_orders";
     }
+
 
     @GetMapping("/order/cancel/{id}")
     public String cancelOrder(@PathVariable("id")int orderId,Model model){

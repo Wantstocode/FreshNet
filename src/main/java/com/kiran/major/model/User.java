@@ -16,19 +16,16 @@ public class User {
     private int id;
 
     @Column(name="first_name")
-    @Size(min=1,message="is required")
     private String firstName;
 
     @Column(name="last_name")
-    @Size(min=1,message="is required")
     private String lastName;
 
     @Column(name="email")
     private String email;
 
-    @Column(name="password")
-    @Size(min = 8, message = "Password must be at least 8 characters long")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=]).*$", message = "Password must contain at least one digit, one letter, and one special character")
+    @Column(name = "password")
+    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-zA-Z])(?=.*[@#$%^&+=]).{5,}$", message = "Password must be at least 5 characters long, include a digit, letter, and special character.")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)

@@ -6,6 +6,7 @@ import com.kiran.major.model.User;
 import com.kiran.major.repository.CartRepository;
 import com.kiran.major.repository.ProductRepository;
 import com.kiran.major.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -40,7 +41,7 @@ public class CartServiceImpl implements CartService{
             cart.setWeight(product.getWeight());
             cart.setTotalPrice(product.getPrice());
             System.out.println(cart.getId());
-            System.out.println("hellow");
+            System.out.println("hello");
             return cartRepository.save(cart);
         }else{
 //            cart = cartStatus;
@@ -64,5 +65,25 @@ public class CartServiceImpl implements CartService{
     @Override
     public void delete(Cart cart) {
         cartRepository.delete(cart);
+    }
+
+    @Transactional
+    @Override
+    public void decreaseQuantity(Cart cart, Product product) {
+        if(cart.getQuantity()>0) {
+            cart.setQuantity(cart.getQuantity() - 1);
+            cart.setTotalPrice(Double.parseDouble(String.format("%.2f", cart.getTotalPrice() - product.getPrice())));
+            cartRepository.save(cart);
+        }
+    }
+
+    @Transactional
+    @Override
+    public void increaseQuantity(Cart cart, Product product) {
+        
+        cart.setQuantity(cart.getQuantity() + 1);
+        cart.setTotalPrice(Double.parseDouble(String.format("%.2f", cart.getTotalPrice() + product.getPrice())));
+        cartRepository.save(cart);
+
     }
 }

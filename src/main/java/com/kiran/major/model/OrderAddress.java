@@ -1,13 +1,13 @@
 package com.kiran.major.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -35,4 +35,8 @@ public class OrderAddress {
     private String pinCode;
 
     private String additionalInfo;
+
+    @OneToMany(mappedBy = "orderAddress")
+    @JsonBackReference
+    private Set<Order> orders;
 }

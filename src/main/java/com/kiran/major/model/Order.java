@@ -1,5 +1,7 @@
 package com.kiran.major.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +25,7 @@ public class Order {
 
     private Date orderDate;
 
+    @JsonIgnore
     @ManyToOne
     private Product product;
 
@@ -30,14 +33,22 @@ public class Order {
 
     private Double Quantity;
 
+
+    @JsonIgnore
     @ManyToOne
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @ManyToOne(cascade = CascadeType.ALL)
     private OrderAddress orderAddress;
 
     private String orderStatus;
 
     private String paymentType;
+
+    private String RezorPayOrderId;
+
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    private Payment payment;
 
 }

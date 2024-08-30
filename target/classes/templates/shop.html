@@ -129,12 +129,13 @@
             </ul>
         </div>
 
+
         <div class="col-sm-9">
             <h3><a th:href="@{/shop/1}" >All Products</a></h3>
             <div class="card" style="margin-top: 20px" th:each="product : ${products}">
                 <div class="row no-gutters">
                     <div class="col-sm-5 d-flex justify-content-center">
-                        <img class="" height="150px" width="150px" th:src="@{${'/productImages/' + product.imageName}}" th:alt="${product.name}">
+                        <img class="" height="150px" width="150px" th:src="${product.imageName}" th:alt="${product.name}">
                     </div>
                     <div class="col-sm-7 d-flex justify-content-center">
                         <div class="card-body">
