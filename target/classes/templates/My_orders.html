@@ -77,6 +77,7 @@
                 <th>Sl No</th>
                 <th>Date</th>
                 <th>Order ID</th>
+                <th>PaymentId</th>
                 <th>Product Details</th>
                 <th>Quantity</th>
                 <th>Price</th>
@@ -90,6 +91,7 @@
                 <td th:text="${iterStat.count}">1</td>
                 <td th:text="${order.orderDate}">2024-07-25</td>
                 <td th:text="${order.orderReferenceId}">ORD123456</td>
+                <td th:text="${order.RezorPayOrderId}"></td>
                 <td th:text="${order.product.description}">Product description</td>
                 <td th:text="${order.quantity}">1</td>
                 <td th:text="${order.price}">$0.00</td>

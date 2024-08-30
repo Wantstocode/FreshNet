@@ -55,7 +55,12 @@ public class LoginControll {
     }
 
     @PostMapping("/register")
-    public String registerUserAccount(@ModelAttribute("user") User user, HttpServletRequest request,Model model)throws ServletException {
+    public String registerUserAccount(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, HttpServletRequest request,Model model)throws ServletException {
+
+        if (bindingResult.hasErrors()) {
+            // If there are errors, return to the registration page with the errors displayed
+            return "register";
+        }
 
         String url=request.getRequestURL().toString();                      http://localhost:8080/register
         url=url.replace(request.getServletPath(),"");             http://localhost:8080
@@ -63,7 +68,6 @@ public class LoginControll {
         String password= user.getPassword();
         userService.save(user,url);
         model.addAttribute("emailSentMessage","Verification link sent to your email " + user.getEmail() + ".<br/> click that to verify the account.");
-//        request.login(user.getEmail(),password);
 
         return "register";
     }
@@ -76,8 +80,12 @@ public class LoginControll {
     }
 
     @PostMapping("/admin/register")
-    public String registerAdminAccount(@ModelAttribute("user") User user, HttpServletRequest request,Model model)throws ServletException {
+    public String registerAdminAccount(@Valid @ModelAttribute("user") User user,BindingResult bindingResult, HttpServletRequest request,Model model)throws ServletException {
 
+        if (bindingResult.hasErrors()) {
+            // If there are errors, return to the registration page with the errors displayed
+            return "admin_register";
+        }
 
         String url=request.getRequestURL().toString();                      http://localhost:8080/admin/register
         System.out.println(url);
@@ -90,6 +98,7 @@ public class LoginControll {
 
         return "admin_register";
     }
+
 
     @GetMapping("/verify")
     public String verifyAccount(@Param("code") String code,Model model){

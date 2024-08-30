@@ -8,8 +8,11 @@ import com.kiran.major.model.OrderAddress;
 import com.kiran.major.model.User;
 import com.kiran.major.repository.CartRepository;
 import com.kiran.major.repository.OrderRepository;
+import com.razorpay.*;
 import jakarta.transaction.Transactional;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -29,15 +32,90 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private CartRepository cartRepository;
 
+    @Value("${razorpay.key.id}")
+    private String razorPayKey;
+
+    @Value("${razorpay.secret.key}")
+    private String razorPaySecret;
+
+    @Autowired
+    private RazorpayClient razorpayClient;
+
+
+
     @Transactional
     @Override
-    public void saveOrder(OrderRequest orderRequest, Integer userId) {
+    public Order saveOnlinePaymentOrder(OrderRequest orderRequest, Integer userId) throws RazorpayException {
+        List<Cart> cartList=cartRepository.findByUserId(userId);
+        Order order1=new Order();
+        double price=0;
+        com.razorpay.Order razorPayOrder;
+
+        for(Cart cart:cartList){
+            price+=cart.getTotalPrice();
+        }
+
+        try {
+            JSONObject razorPayOrderRequest = new JSONObject();
+
+            razorPayOrderRequest.put("amount", price * 100);   //amount in paisa
+            razorPayOrderRequest.put("currency", "INR");
+            razorPayOrderRequest.put("receipt", orderRequest.getEmail());
+
+
+            //create order in razorpay
+            razorPayOrder = razorpayClient.orders.create(razorPayOrderRequest);
+            order1.setRezorPayOrderId(razorPayOrder.get("id"));
+            order1.setPrice(price);
+
+        } catch (RazorpayException e) {
+            throw new RuntimeException("Razorpay order creation failed", e);
+        }
+
+        for(Cart cart:cartList){
+
+            //setting up order
+            Order order=new Order();
+            order.setOrderReferenceId("ORD-" + UUID.randomUUID().toString().substring(0, 18));
+            order.setOrderDate(new Date());
+            order.setProduct(cart.getProduct());
+            order.setPrice(cart.getTotalPrice());
+            order.setQuantity(cart.getQuantity());
+            order.setUser(cart.getUser());
+            order.setOrderStatus(OrderStatus.IN_PROGRESS.getName());
+            order.setPaymentType(orderRequest.getPaymentType());
+
+            //setting up order address
+            OrderAddress orderAddress=new OrderAddress();
+            orderAddress.setFirstName(orderRequest.getFirstName());
+            orderAddress.setLastName(orderRequest.getLastName());
+            orderAddress.setEmail(orderRequest.getEmail());
+            orderAddress.setMobileNo(orderRequest.getMobileNo());
+            orderAddress.setAddress(orderRequest.getAddress());
+            orderAddress.setCity(orderRequest.getCity());
+            orderAddress.setPinCode(orderRequest.getPinCode());
+            orderAddress.setAdditionalInfo(orderRequest.getAdditionalInfo());
+
+            order.setOrderAddress(orderAddress);
+
+            order.setRezorPayOrderId(razorPayOrder.get("id"));
+            orderRepository.save(order);
+
+        }
+
+        return order1;
+    }
+
+    @Transactional
+    @Override
+    public void saveOfflinePaymentOrder(OrderRequest orderRequest, Integer userId) {
+
         List<Cart> cartList=cartRepository.findByUserId(userId);
         for(Cart cart:cartList){
 
             //setting up order
             Order order=new Order();
-            order.setOrderReferenceId(UUID.randomUUID().toString());
+            order.setOrderReferenceId("ORD-" + UUID.randomUUID().toString().substring(0, 18));
             order.setOrderDate(new Date());
             order.setProduct(cart.getProduct());
             order.setPrice(cart.getTotalPrice());
@@ -60,6 +138,7 @@ public class OrderServiceImpl implements OrderService{
             order.setOrderAddress(orderAddress);
 
             orderRepository.save(order);
+
         }
     }
 
