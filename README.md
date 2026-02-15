@@ -1,43 +1,139 @@
-## FreahNet
-FreashNet is an online grocery ordering web application built using Spring Boot for the backend and Thymeleaf for the frontend. It offers a seamless experience for users to browse, select, and purchase groceries. The application also features inventory management, role-based authorization, Google sign-in integration, and robust security measures.
-<br>
-## Key Features
+# 🛒 FreshNet – Online Grocery Ordering Web Application
 
-1. Spring Boot Backend: Provides a robust and scalable backend.
-2. Thymeleaf Frontend: Renders dynamic content and views.
-3. User and Admin Roles:
-      * Users: Access only the shopping site.
-      * Admins: Have access to both user and admin functionalities.
-4. Google Sign-In Integration: Allows users to authenticate using their Google accounts.
-5. Security Measures: Implements strong security protocols to protect user data.
-6. Data Storage: Utilizes MySQL as a relational database with five tables having various relationships:
-      * OneToOne
-      * OneToMany
-      * ManyToMany
-7. Email Verification: Sends a verification email to users upon registration to confirm their email address. Ensuring that Only verified emails can log in. Invalid or false email addresses will not be able to access the application.
-8. Forgot Password: Allows users to reset their passwords via email if they forget their credentials.
-9. Product Management:
-     * Sorting: Allows sorting products by price and name to help users find items more easily.
-     * Searching: Enables users to search for products using keywords.
-     * Pagination: Implements pagination to manage large sets of products, improving the browsing experience.
-     * Selection and Cart Management: Users can select products, add them to their cart, and proceed to place orders.
-       
-## Login credentials
+**FreshNet** is a full-stack online grocery ordering platform built using **Spring Boot (backend)** and **Thymeleaf (frontend)**.
+It provides a smooth shopping experience for users while giving administrators powerful tools for product and inventory management.
 
-1. User Login: Users can log in using their email and password to access the shopping site.
-2. Admin Login: Admins can log in with additional privileges to manage both user and admin functionalities.
+The project demonstrates real-world backend engineering concepts including authentication, security, database relationships, and production-style application architecture.
 
-## Setup Instructions
+---
 
-1.Database Initialization:
+## 🚀 Tech Stack
 
-* Execute the provided SQL query to set up the initial database schema and data.
-* By default, users are assigned the 'User' role. Admins need to be manually added to the database, paying attention to ManyToMany mapping.
+**Backend**
 
-2. Google Authentication:
-   * Create your own google-client-id and google-client-secret credentials.
-   * Configure these credentials in the application.properties file. (Note: Sensitive information has been omitted for privacy.)
-   * This may help for google oauth configure: https://www.youtube.com/watch?v=qcz2jBLNOtc
+* Java + Spring Boot
+* Spring Security
+* OAuth2 (Google Sign-In)
+* MySQL Database
+
+**Frontend**
+
+* Thymeleaf
+* HTML, CSS, JavaScript
+
+**Other Integrations**
+
+* Email Service (verification & password reset)
+* Role-based authorization
+* Secure authentication workflows
+
+---
+
+## ⭐ Key Features
+
+### 👤 User & Admin Roles
+
+* **Users:** Browse products, add to cart, place orders.
+* **Admins:** Manage products, users, and inventory.
+
+---
+
+### 🔐 Authentication & Security
+
+* Google OAuth2 Sign-In integration
+* Email verification after registration
+* Password reset via email
+* Secure login with role-based access control
+
+---
+
+### 🛍️ Product Management
+
+* Product search with keywords
+* Sorting by price or name
+* Pagination for better browsing
+* Add-to-cart functionality
+* Order placement workflow
+
+---
+
+### 🗄️ Database Design
+
+Uses **MySQL relational database** with structured relationships:
+
+* One-to-One
+* One-to-Many
+* Many-to-Many
+
+Designed to reflect real production database architecture.
+
+---
+
+## 📧 Email Features
+
+✔ Email verification on signup
+✔ Prevents login with unverified emails
+✔ Forgot password email workflow
+
+Ensures secure and verified user access.
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Database Setup
+
+* Run the provided SQL script.
+* Default users receive **USER role**.
+* Admin roles must be assigned manually in DB.
+
+---
+
+### 2️⃣ Google OAuth Configuration
+
+1. Create credentials in Google Cloud Console:
+
+   * Client ID
+   * Client Secret
+2. Add them to:
+
+`application.properties`
+
+(Note: Credentials excluded from repo for security.)
+
+---
+
+## 🔑 Login Access
+
+### User Login
+
+* Email + password
+* Access shopping functionality
+
+### Admin Login
+
+* Elevated privileges
+* Manage products and users
+
+---
+
+## 💡 Learning Highlights From This Project
+
+* Spring Boot full-stack development
+* Secure authentication implementation
+* OAuth2 integration
+* Role-based authorization
+* Database relationship modeling
+* Production-style backend architecture
+
+---
+
+## 👨‍💻 Author
+
+Developed as a backend-focused full-stack project demonstrating real-world engineering practices using Java Spring Boot.
+
+If you found this project helpful, feel free to ⭐ the repository.
+
 
 ## ER-Diagram
 <br>
@@ -49,7 +145,7 @@ FreashNet is an online grocery ordering web application built using Spring Boot 
 **login page**
 <br>
 <br>
-![Screenshot (64)](https://github.com/user-attachments/assets/d09a7751-f91e-49ac-b364-75fd8a4a3472)
+<img width="1905" height="955" alt="Screenshot 2026-02-15 141016" src="https://github.com/user-attachments/assets/46c9400a-aad8-4d45-8296-c9415ada2730" />
 <br>
 <br>
 **Registration Page**
@@ -58,7 +154,7 @@ FreashNet is an online grocery ordering web application built using Spring Boot 
 ![Screenshot (65)](https://github.com/user-attachments/assets/2b8d43b5-6556-4be5-af48-f58f0572e4a8)
 <br>
 <br>
-**login page**
+**Admin Page**
 <br>
 <br>
 ![Screenshot (66)](https://github.com/user-attachments/assets/48ab2c89-868f-4d73-9ed2-cea0bfd1ece2)
